@@ -19,6 +19,8 @@
 }
 
 .submitButtonContainer {
+    display: flex;
+    justify-content: flex-end;
     margin-top: 10px;
     padding-top: 10px;
 }
