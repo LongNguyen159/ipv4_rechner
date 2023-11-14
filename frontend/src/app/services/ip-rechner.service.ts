@@ -19,4 +19,8 @@ export class IpRechnerService {
     return this.http.get<Config>(`${this.apiEndpoint}/default_config`)
   }
 
+  getResults() {
+    return this.http.get(`${this.apiEndpoint}/results`)
+  }
+
 }

@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
+import { ResultTableComponent } from './components/result-table/result-table.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {MatSelectModule} from '@angular/material/select';
     ConfigTableComponent,
     ComputingPageComponent,
     HomePageComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ResultTableComponent
   ],
   imports: [
     MatSelectModule,

@@ -1,1 +1,9 @@
-<app-config-table></app-config-table>
+<div class="computePageContainer">
+    <div>
+        <app-config-table (submission)="onTableSubmit($event)"></app-config-table>
+    </div>
+    
+    <div>
+        <app-result-table></app-result-table>
+    </div>
+</div>

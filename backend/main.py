@@ -17,6 +17,7 @@ app.add_middleware(
 )
 
 stored_config = {}
+results = []
 
 
 @app.get("/")
@@ -25,7 +26,7 @@ def read_root():
 
 @app.post("/config")
 async def set_config(config: Config):
-    results = []
+    global results
 
     global stored_config
     stored_config = config
@@ -48,3 +49,7 @@ async def get_stored_config():
 @app.get('/default_config')
 async def get_default_config():
     return models.Config()
+
+@app.get('/results')
+async def get_results():
+    return results

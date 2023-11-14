@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Config } from 'src/app/models/ip-config';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -12,6 +12,8 @@ import { take } from 'rxjs';
 })
 export class ConfigTableComponent implements OnInit {
 
+  @Output() submission = new EventEmitter<boolean>(false)
+
   numSubnets = [2, 4, 8, 16, 32, 64]
 
   configData: Config = {
@@ -24,8 +26,6 @@ export class ConfigTableComponent implements OnInit {
   }
 
   configForm: FormGroup
-
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -78,13 +78,6 @@ export class ConfigTableComponent implements OnInit {
 
 
   onSubmit() {
-
-    // if (!this.configForm.value.is_equal && this.configForm.value.subnet_sizes) {
-      
-    // } else {
-    //   this.configData = {...this.configForm.value}
-    // }
-
     const subnetSizesInput: string = this.configForm.get('subnet_sizes')?.value
 
     if (typeof subnetSizesInput == 'string') {
@@ -98,18 +91,16 @@ export class ConfigTableComponent implements OnInit {
       this.configData = {...this.configForm.value}
     }
     
-    
-
-    
-    
     this.ipService.setConfig(this.configData).subscribe(
       (response) => {
         if (response) {
           console.log(response)
+          this.submission.emit(true)
         }
       },
       (error: HttpErrorResponse) => {
         console.error(error)
+        this.submission.emit(false)
       }
     )
   }

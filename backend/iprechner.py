@@ -14,6 +14,7 @@ def get_ipv4_details(ip, cidr):
 
     return {
         "Subnet Mask": subnet_mask,
+        "CIDR Notation": cidr ,
         "Number of Hosts": num_hosts,
         "Number of Usable Hosts": num_usable_hosts,
         "First Host Address": first_host,
@@ -43,7 +44,13 @@ def calculate_subnet_equally(ip, cidr, num_subnets):
     # Calculate subnets
     subnets = list(original_network.subnets(new_prefix=new_cidr))
 
-    return subnets
+
+    subnet_details = [
+        {str(subnet.network_address): get_ipv4_details(str(subnet.network_address), new_cidr)}
+        for subnet in subnets
+    ]
+
+    return subnet_details
 
 
 
@@ -52,6 +59,7 @@ def calculate_subnet_unequally(ip, cidr, subnet_sizes):
     original_network = ipaddress.IPv4Network(f"{ip}/{cidr}")
 
     subnets = []
+    subnet_details = []
     current_address = original_network.network_address
 
     for size in subnet_sizes:
@@ -69,6 +77,13 @@ def calculate_subnet_unequally(ip, cidr, subnet_sizes):
         # Ensure the subnet is within the original network
         if subnet.network_address >= original_network.network_address and subnet.broadcast_address <= original_network.broadcast_address:
             subnets.append(subnet)
+
+            # Get details for the current subnet and create a dictionary
+            subnet_ip = str(subnet.network_address)
+            details = get_ipv4_details(subnet_ip, subnet_cidr)
+            subnet_details.append({subnet_ip: details})
+
+            # iterate to the next subnet
             current_address = subnet.broadcast_address + 1
 
-    return subnets
+    return subnet_details
