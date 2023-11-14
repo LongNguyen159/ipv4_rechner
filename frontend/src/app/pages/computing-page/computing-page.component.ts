@@ -9,6 +9,7 @@ import { IpRechnerService } from 'src/app/services/ip-rechner.service';
 })
 export class ComputingPageComponent {
 
+  response: any
 
 
   constructor(
@@ -18,8 +19,8 @@ export class ComputingPageComponent {
   onTableSubmit(isResponseOK: boolean) {
     if (isResponseOK) {
       console.log('ok')
-      this.ipService.getResults().pipe(take(1)).subscribe(results => {
-        console.log('results from page:', results)
+      this.ipService.getResults().pipe(take(1)).subscribe((results) => {
+        this.response = results
       })
       
     } else {

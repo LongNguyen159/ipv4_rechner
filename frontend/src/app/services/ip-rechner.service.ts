@@ -20,7 +20,7 @@ export class IpRechnerService {
   }
 
   getResults() {
-    return this.http.get(`${this.apiEndpoint}/results`)
+    return this.http.get<any[]>(`${this.apiEndpoint}/results`)
   }
 
 }

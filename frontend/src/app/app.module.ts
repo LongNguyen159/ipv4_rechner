@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { ResultTableComponent } from './components/result-table/result-table.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ResultTableComponent } from './components/result-table/result-table.com
     ResultTableComponent
   ],
   imports: [
+    MatExpansionModule,
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,

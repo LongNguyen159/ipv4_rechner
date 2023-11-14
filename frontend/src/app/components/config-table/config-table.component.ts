@@ -94,7 +94,6 @@ export class ConfigTableComponent implements OnInit {
     this.ipService.setConfig(this.configData).subscribe(
       (response) => {
         if (response) {
-          console.log(response)
           this.submission.emit(true)
         }
       },

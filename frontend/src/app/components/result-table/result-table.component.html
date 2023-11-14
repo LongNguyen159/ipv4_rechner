@@ -1,1 +1,14 @@
-<p>result-table works!</p>
+<div class="resultsContainer">
+    <h3>Results</h3>
+    <mat-expansion-panel *ngFor="let subnet of results">
+        <mat-expansion-panel-header *ngFor="let item of subnet | keyvalue">
+          {{ item.key }}
+        </mat-expansion-panel-header>
+    
+        <div *ngFor="let item of subnet | keyvalue">
+            <div>
+              <p [innerHTML]="formatValue(item.value)"></p>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
