@@ -11,9 +11,12 @@ export class IpRechnerService {
   constructor(private http: HttpClient) { }
 
   setConfig(config: Config) {
-
     console.log(config)
     return this.http.post(`${this.apiEndpoint}/config`, config)
+  }
+
+  getDefaultConfig() {
+    return this.http.get<Config>(`${this.apiEndpoint}/default_config`)
   }
 
 }

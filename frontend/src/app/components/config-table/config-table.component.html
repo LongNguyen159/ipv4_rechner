@@ -16,7 +16,7 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>CIDR</mat-label>
-                            <input matInput formControlName="ip_address" >
+                            <input matInput formControlName="cidr" >
                         </mat-form-field>
                     </div>
 
@@ -45,6 +45,17 @@
                                 Unequally (different host sizes)
                             </mat-radio-button>
                         </mat-radio-group>
+                    </div>
+
+                    <div class="numSubnetsInput">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Number of subnets:</mat-label>
+                            <mat-select formControlName="num_subnets">
+                                <mat-option *ngFor="let value of numSubnets" [value]="value">
+                                   {{ value }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                     
                 </form>

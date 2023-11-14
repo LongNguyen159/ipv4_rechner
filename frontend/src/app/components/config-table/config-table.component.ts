@@ -4,12 +4,15 @@ import { Config } from 'src/app/models/ip-config';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { IpRechnerService } from 'src/app/services/ip-rechner.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-config-table',
   templateUrl: './config-table.component.html',
   styleUrls: ['./config-table.component.scss']
 })
 export class ConfigTableComponent implements OnInit {
+
+  numSubnets = [2, 4, 8, 16, 32, 64]
 
   configData: Config = {
     ip_address: '',
@@ -33,6 +36,13 @@ export class ConfigTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
+
+    this.ipService.getDefaultConfig().pipe(take(1)).subscribe((config: Config) => {
+      console.log(config)
+      if (config) {
+        this.updateForm(config)
+      }
+    })
   }
 
   private buildForm() {
@@ -41,7 +51,7 @@ export class ConfigTableComponent implements OnInit {
       cidr: [0, Validators.required],
       is_subnetting: false,
       is_equal: true,
-      num_subnets: 4,
+      num_subnets: 0,
       subnet_sizes: []
     })
   }
