@@ -8,13 +8,11 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class ResultTableComponent implements OnChanges{
   @Input() results: any[]
 
-
+  isArray: boolean
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.results && changes.results.currentValue) {
-      console.log(this.results)
-
-      console.log(Object.values(this.results[0]))
+      this.isArray = Array.isArray(this.results)
     }
   }
 

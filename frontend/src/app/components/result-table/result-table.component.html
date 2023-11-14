@@ -1,6 +1,7 @@
 <div class="resultsContainer">
     <h3>Results</h3>
-    <mat-expansion-panel *ngFor="let subnet of results">
+    <div *ngIf="isArray">
+      <mat-expansion-panel *ngFor="let subnet of results">
         <mat-expansion-panel-header *ngFor="let item of subnet | keyvalue">
           {{ item.key }}
         </mat-expansion-panel-header>
@@ -11,4 +12,13 @@
             </div>
         </div>
     </mat-expansion-panel>
+    </div>
+    
+
+    <div *ngIf="!isArray">
+      <div *ngFor="let result of results | keyvalue">
+        {{ result.key }}: {{ result.value }}
+      </div>
+    </div>
+    
 </div>
