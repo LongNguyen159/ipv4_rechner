@@ -30,7 +30,12 @@ def calculate_subnet_equally(ip, cidr, num_subnets):
     # Question to solve: How many network bits (1's bits) do we need to divide {ip} into {num_subnets} subnets?
     # Calculate bits to borrow by formula 2^x >= num_subnets
     # where 'x' is the number of bits to borrow.
-    bits_to_borrow = math.ceil(math.log2(num_subnets))
+    if num_subnets != 0:
+        bits_to_borrow = math.ceil(math.log2(num_subnets))
+    else:
+        bits_to_borrow = 0
+        return 'not dividable'
+
 
     new_cidr = cidr + bits_to_borrow
 
