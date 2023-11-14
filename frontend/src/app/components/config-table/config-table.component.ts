@@ -51,7 +51,7 @@ export class ConfigTableComponent implements OnInit {
       cidr: [0, Validators.required],
       is_subnetting: false,
       is_equal: true,
-      num_subnets: 0,
+      num_subnets: 4,
       subnet_sizes: []
     })
   }
@@ -78,7 +78,30 @@ export class ConfigTableComponent implements OnInit {
 
 
   onSubmit() {
-    this.configData = {...this.configForm.value}
+
+    // if (!this.configForm.value.is_equal && this.configForm.value.subnet_sizes) {
+      
+    // } else {
+    //   this.configData = {...this.configForm.value}
+    // }
+
+    const subnetSizesInput: string = this.configForm.get('subnet_sizes')?.value
+
+    if (typeof subnetSizesInput == 'string') {
+      const subnet_sizesArray = subnetSizesInput.split(/[ ,]+/)
+      const subnetSizesToNumber = subnet_sizesArray.map(Number)
+      this.configData = {
+        ...this.configForm.value,
+        subnet_sizes: subnetSizesToNumber
+      }
+    } else {
+      this.configData = {...this.configForm.value}
+    }
+    
+    
+
+    
+    
     this.ipService.setConfig(this.configData).subscribe(
       (response) => {
         if (response) {

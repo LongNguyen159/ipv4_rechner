@@ -1,53 +1,52 @@
 <div class="tableContainer">
     <mat-card>
-        <div>
-            <mat-card-title>
-                IPv4 Rechner
-            </mat-card-title>
-            <mat-card-content>
-                <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
-                   <div class="inputFieldsContainer">
-                        <mat-form-field appearance="outline">
-                            <mat-label>IP Address:</mat-label>
-                            <input matInput formControlName="ip_address" >
-                        </mat-form-field>
+        <mat-card-title style="padding: 12px;">
+            IPv4 Rechner
+        </mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+               <div class="inputFieldsContainer">
+                    <mat-form-field appearance="outline">
+                        <mat-label>IP Address:</mat-label>
+                        <input matInput type="text" formControlName="ip_address" >
+                    </mat-form-field>
 
-                        <p>/</p>
+                    <p class="cidrSymbol">/</p>
 
-                        <mat-form-field appearance="outline">
-                            <mat-label>CIDR</mat-label>
-                            <input matInput formControlName="cidr" >
-                        </mat-form-field>
-                    </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>CIDR</mat-label>
+                        <input matInput formControlName="cidr" >
+                    </mat-form-field>
+                </div>
 
-                    <div class="radioSelection">
-                        <mat-radio-group formControlName="is_subnetting">
-                            <p>Subnets?</p>
-                            <br>
-                            <mat-radio-button [value]="true" [checked]="configData.is_subnetting == true">
-                                Yes
-                            </mat-radio-button>
-                            <mat-radio-button [value]="false" [checked]="configData.is_subnetting == false">
-                                No
-                            </mat-radio-button>
-                        </mat-radio-group>
-                    </div>
+                <div class="radioSelection">
+                    <mat-radio-group formControlName="is_subnetting">
+                        <p class="radioTitle">Do you want to divide this network into subnets?</p>
+                        <br>
+                        <mat-radio-button [value]="true" [checked]="configData.is_subnetting == true">
+                            Yes
+                        </mat-radio-button>
+                        <mat-radio-button [value]="false" [checked]="configData.is_subnetting == false">
+                            No
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
 
 
-                    <div class="radioSelection">
-                        <mat-radio-group formControlName="is_equal">
-                            <p>How would you want to subnet?</p>
-                            <br>
-                            <mat-radio-button [value]="true" [checked]="configData.is_equal == true">
-                                Equally
-                            </mat-radio-button>
-                            <mat-radio-button [value]="false" [checked]="configData.is_equal == false">
-                                Unequally (different host sizes)
-                            </mat-radio-button>
-                        </mat-radio-group>
-                    </div>
+                <div class="radioSelection" [hidden]="!configForm.get('is_subnetting')?.value">
+                    <mat-radio-group formControlName="is_equal">
+                        <p class="radioTitle">How would you want to subnet?</p>
+                        <br>
+                        <mat-radio-button [value]="true" [checked]="configData.is_equal == true">
+                            Equally
+                        </mat-radio-button>
+                        <mat-radio-button [value]="false" [checked]="configData.is_equal == false">
+                            Unequally (different host sizes)
+                        </mat-radio-button>
+                    </mat-radio-group>
 
-                    <div class="numSubnetsInput">
+
+                    <div class="numSubnetsInput" [hidden]="!configForm.get('is_equal')?.value">
                         <mat-form-field appearance="outline">
                             <mat-label>Number of subnets:</mat-label>
                             <mat-select formControlName="num_subnets">
@@ -57,9 +56,25 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    
-                </form>
-            </mat-card-content>
-        </div>
+
+                    <div class="numSubnetsInput" [hidden]="configForm.get('is_equal')?.value">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Number of Hosts per subnet:</mat-label>
+                            <input matInput formControlName="subnet_sizes">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="submitButtonContainer">
+                    <button
+                      type="submit"
+                      mat-raised-button
+                      color="primary"
+                    >
+                      Calculate
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
     </mat-card>
 </div>
