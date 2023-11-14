@@ -22,5 +22,6 @@ async def set_config(config: Config):
         if not config.is_equal:
             print('divide not equal')
             results = iprechner.calculate_subnet_unequally(config.ip_address, config.cidr, config.subnet_sizes)
-
+    elif not config.is_subnetting:
+        results = iprechner.get_ipv4_details(config.ip_address, config.cidr)
     return results
