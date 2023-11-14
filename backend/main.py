@@ -3,8 +3,11 @@ from typing import Union
 from fastapi import FastAPI
 from models import Config
 import iprechner
+import models
 
 app = FastAPI()
+
+stored_config = {}
 
 
 @app.get("/")
@@ -14,6 +17,9 @@ def read_root():
 @app.post("/config")
 async def set_config(config: Config):
     results = []
+
+    global stored_config
+    stored_config = config
 
     if config.is_subnetting:
         if config.is_equal:
@@ -25,3 +31,11 @@ async def set_config(config: Config):
     elif not config.is_subnetting:
         results = iprechner.get_ipv4_details(config.ip_address, config.cidr)
     return results
+
+@app.get("/stored_config")
+async def get_stored_config():
+    return stored_config
+
+@app.get('/default_config')
+async def get_default_config():
+    return models.Config()

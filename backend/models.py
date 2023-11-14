@@ -8,4 +8,4 @@ class Config(BaseModel):
     is_subnetting: bool = False
     is_equal: bool = True
     num_subnets: int = Field(default=4)
-    subnet_sizes: list[int]
+    subnet_sizes: list[int] = Field(default=[30, 20, 10])

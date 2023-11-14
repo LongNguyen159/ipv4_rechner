@@ -10,6 +10,14 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { IpRechnerService } from './services/ip-rechner.service';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -20,13 +28,19 @@ import {MatButtonModule} from '@angular/material/button';
     ToolbarComponent
   ],
   imports: [
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatCardModule,
+    HttpClientModule,
     MatButtonModule,
     MatToolbarModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [IpRechnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
