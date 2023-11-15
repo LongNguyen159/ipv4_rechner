@@ -50,7 +50,7 @@ async def set_config(config: Config):
         # Return results on successful calculation
         return {"results": results}
     except Exception as e:
-        # Catch ValueError during subnet calculation and return a meaningful error response
+        # Catch Exception during subnet calculation and return a meaningful error response
         error_message = str(e)
         raise HTTPException(status_code=400, detail=error_message)
 
