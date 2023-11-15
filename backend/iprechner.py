@@ -60,6 +60,9 @@ def calculate_subnet_unequally(ip: str, cidr: int, subnet_sizes: list[int]) -> L
 
     subnets = []
     subnet_details = []
+
+    # this variable keeps track of the current address
+    # while iterating through 'subnet_sizes'
     current_address = original_network.network_address
 
     for size in subnet_sizes:
