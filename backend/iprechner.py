@@ -1,6 +1,7 @@
 import ipaddress
 import math
 
+# this function returns an object containing IP's infos
 def get_ipv4_details(ip, cidr):
 
     network = ipaddress.IPv4Network(f"{ip}/{cidr}", strict=False)
@@ -37,7 +38,6 @@ def calculate_subnet_equally(ip, cidr, num_subnets):
         bits_to_borrow = 0
         return 'not dividable'
 
-
     new_cidr = cidr + bits_to_borrow
 
 
@@ -45,6 +45,7 @@ def calculate_subnet_equally(ip, cidr, num_subnets):
     subnets = list(original_network.subnets(new_prefix=new_cidr))
 
 
+    # create a list of dictionary, where IPs are keys and their details are values
     subnet_details = [
         {str(subnet.network_address): get_ipv4_details(str(subnet.network_address), new_cidr)}
         for subnet in subnets
