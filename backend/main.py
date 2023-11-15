@@ -27,6 +27,7 @@ def read_root():
 @app.post("/config")
 async def set_config(config: Config):
     global results
+    global stored_config
 
     try:
         # Update stored_config
@@ -48,9 +49,9 @@ async def set_config(config: Config):
 
         # Return results on successful calculation
         return {"results": results}
-    except ValueError as ve:
+    except Exception as e:
         # Catch ValueError during subnet calculation and return a meaningful error response
-        error_message = str(ve)
+        error_message = str(e)
         raise HTTPException(status_code=400, detail=error_message)
 
 @app.get("/stored_config")
