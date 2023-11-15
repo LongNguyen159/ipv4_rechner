@@ -31,6 +31,10 @@ async def set_config(config: Config):
     global stored_config
     stored_config = config
 
+    # sort subnet_sizes array in desc order to ensure subnetting is correct
+    # before passing into `calculate_subnet_unequally`
+    config.subnet_sizes.sort(reverse=True)
+
     if config.is_subnetting:
         if config.is_equal:
             print('divide network equally')
