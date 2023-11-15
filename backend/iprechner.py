@@ -1,8 +1,8 @@
 import ipaddress
 import math
-
+from typing import List, Dict
 # this function returns an object containing IP's infos
-def get_ipv4_details(ip, cidr):
+def get_ipv4_details(ip: str, cidr: int):
 
     network = ipaddress.IPv4Network(f"{ip}/{cidr}", strict=False)
 
@@ -25,7 +25,7 @@ def get_ipv4_details(ip, cidr):
 
 
 # Divide a network into equal subnets
-def calculate_subnet_equally(ip, cidr, num_subnets):
+def calculate_subnet_equally(ip: str, cidr: int, num_subnets: int) -> List[Dict]:
 
     original_network = ipaddress.IPv4Network(f"{ip}/{cidr}")
 
@@ -50,13 +50,12 @@ def calculate_subnet_equally(ip, cidr, num_subnets):
         {str(subnet.network_address): get_ipv4_details(str(subnet.network_address), new_cidr)}
         for subnet in subnets
     ]
-
     return subnet_details
 
 
 
 # Divide network into unequal subnets
-def calculate_subnet_unequally(ip, cidr, subnet_sizes):
+def calculate_subnet_unequally(ip: str, cidr: int, subnet_sizes: list[int]) -> List[Dict]:
     original_network = ipaddress.IPv4Network(f"{ip}/{cidr}")
 
     subnets = []
