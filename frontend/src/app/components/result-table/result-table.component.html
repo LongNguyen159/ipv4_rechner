@@ -1,5 +1,8 @@
 <div class="resultsContainer">
     <h3>Results</h3>
+    <div class="expandCollapseButton">
+      <button mat-button (click)="expandCollapseAllPanels()">Expand/Collapse</button>
+    </div>
     <div *ngIf="isArray">
       <mat-expansion-panel *ngFor="let subnet of results">
         <mat-expansion-panel-header *ngFor="let item of subnet | keyvalue">
