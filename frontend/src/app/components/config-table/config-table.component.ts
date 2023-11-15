@@ -133,7 +133,7 @@ export class ConfigTableComponent implements OnInit {
             icon: 'error',
             title: `Error: ${error.statusText}`,
             proceedText: 'OK',
-            message: `${error.message}`,
+            message: `${error.error.detail}`,
             proceedButtonColor: 'primary',
           }
           this.openErrorDialog(dialogData)
@@ -160,10 +160,16 @@ export class ConfigTableComponent implements OnInit {
     let configErrorDetails = ''
     for (let i = 0; i < errorArray[0].length; i++) {
       const errorObject = errorArray[0][i]
-      configErrorDetails += `- Error at '${errorObject.loc[1].replace(
-        '_',
-        ' '
-      )}': ${errorObject.msg}<br>`
+
+      if (errorObject.loc) {
+        configErrorDetails += `- Error at '${errorObject.loc[1].replace(
+          '_',
+          ' '
+        )}': ${errorObject.msg}<br>`
+      } else {
+        configErrorDetails += ``
+      }
+      
     }
     return configErrorDetails
   }

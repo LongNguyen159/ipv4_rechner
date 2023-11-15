@@ -1,6 +1,6 @@
 from typing import Union
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from models import Config
 import iprechner
@@ -28,23 +28,30 @@ def read_root():
 async def set_config(config: Config):
     global results
 
-    global stored_config
-    stored_config = config
+    try:
+        # Update stored_config
+        stored_config = config
 
-    # sort subnet_sizes array in desc order to ensure subnetting is correct
-    # before passing into `calculate_subnet_unequally`
-    config.subnet_sizes.sort(reverse=True)
+        # Sort subnet_sizes array in descending order to ensure correct subnetting
+        config.subnet_sizes.sort(reverse=True)
 
-    if config.is_subnetting:
-        if config.is_equal:
-            print('divide network equally')
-            results = iprechner.calculate_subnet_equally(config.ip_address, config.cidr, config.num_subnets)
-        if not config.is_equal:
-            print('divide not equal')
-            results = iprechner.calculate_subnet_unequally(config.ip_address, config.cidr, config.subnet_sizes)
-    elif not config.is_subnetting:
-        results = iprechner.get_ipv4_details(config.ip_address, config.cidr)
-    return results
+        if config.is_subnetting:
+            if config.is_equal:
+                print('Divide network equally')
+                results = iprechner.calculate_subnet_equally(config.ip_address, config.cidr, config.num_subnets)
+            elif not config.is_equal:
+                print('Divide network unequally')
+                results = iprechner.calculate_subnet_unequally(config.ip_address, config.cidr, config.subnet_sizes)
+        elif not config.is_subnetting:
+            print('Get IPv4 details')
+            results = iprechner.get_ipv4_details(config.ip_address, config.cidr)
+
+        # Return results on successful calculation
+        return {"results": results}
+    except ValueError as ve:
+        # Catch ValueError during subnet calculation and return a meaningful error response
+        error_message = str(ve)
+        raise HTTPException(status_code=400, detail=error_message)
 
 @app.get("/stored_config")
 async def get_stored_config():
