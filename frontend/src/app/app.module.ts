@@ -20,6 +20,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { ResultTableComponent } from './components/result-table/result-table.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { DialogComponent } from './components/dialog/dialog.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -28,9 +32,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ComputingPageComponent,
     HomePageComponent,
     ToolbarComponent,
-    ResultTableComponent
+    ResultTableComponent,
+    DialogComponent
   ],
   imports: [
+    MatDialogModule,
+    MatIconModule,
     MatExpansionModule,
     MatSelectModule,
     MatRadioModule,

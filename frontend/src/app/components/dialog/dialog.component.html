@@ -1,0 +1,32 @@
+<div>
+    <mat-icon *ngIf="data.icon">{{ data.icon }}</mat-icon>
+</div>
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content style="color: rgb(94, 94, 94)">
+  <p style="line-height: 1.6;" [innerHTML]="data.message"></p>
+</div>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+  <button
+    mat-button
+    *ngIf="data.cancelText"
+    [ngClass]="{
+      'mat-flat-button': data.cancelButtonColor !== 'basic',
+      'mat-stroked-button': data.cancelButtonColor === 'basic'
+    }"
+    [color]="data.cancelButtonColor"
+    (click)="diaLogRef.close(false)"
+  >
+    {{ data.cancelText }}
+  </button>
+  <button
+    mat-button
+    [ngClass]="{
+      'mat-flat-button': data.proceedButtonColor !== 'basic',
+      'mat-stroked-button': data.proceedButtonColor === 'basic'
+    }"
+    [color]="data.proceedButtonColor"
+    (click)="diaLogRef.close(true)"
+  >
+    {{ data.proceedText }}
+  </button>
+</div>

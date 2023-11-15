@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { IpRechnerService } from 'src/app/services/ip-rechner.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { take } from 'rxjs';
+import { DialogComponent, DialogData } from '../dialog/dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-config-table',
   templateUrl: './config-table.component.html',
@@ -27,9 +30,12 @@ export class ConfigTableComponent implements OnInit {
 
   configForm: FormGroup
 
+  dialogRef: MatDialogRef<DialogComponent>
+
   constructor(
     private formBuilder: FormBuilder,
-    private ipService: IpRechnerService
+    private ipService: IpRechnerService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -100,7 +106,67 @@ export class ConfigTableComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.error(error)
         this.submission.emit(false)
+
+        const allErrors = error.error
+        const allErrorValues = Object.values(allErrors)
+        const errorArray: any[] = Object.values(allErrorValues)
+
+
+        let configErrorDetails = this.getConfigErrorDetails(errorArray)
+
+
+        if (configErrorDetails) {
+          const dialogData: DialogData = {
+            icon: 'error',
+            title: 'Error: Configuration Error',
+            proceedText: 'OK',
+            message: `Oops! There seems to be an issue with your configuration. Please review the details below and make the necessary corrections.
+            <br>
+            Details:<br>
+            ${configErrorDetails}`,
+            proceedButtonColor: 'primary',
+          }
+          this.openErrorDialog(dialogData)
+        } 
+        else {
+          const dialogData: DialogData = {
+            icon: 'error',
+            title: `Error: ${error.statusText}`,
+            proceedText: 'OK',
+            message: `${error.message}`,
+            proceedButtonColor: 'primary',
+          }
+          this.openErrorDialog(dialogData)
+        }
       }
     )
   }
+
+
+  openErrorDialog(dialogData: DialogData) {
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      disableClose: false,
+      data: dialogData,
+    })
+
+    this.dialogRef.afterClosed().subscribe(() => {
+      return
+    })
+    this.dialogRef = null as any
+  }
+
+
+  getConfigErrorDetails(errorArray: any[]): string {
+    let configErrorDetails = ''
+    for (let i = 0; i < errorArray[0].length; i++) {
+      const errorObject = errorArray[0][i]
+      configErrorDetails += `- Error at '${errorObject.loc[1].replace(
+        '_',
+        ' '
+      )}': ${errorObject.msg}<br>`
+    }
+    return configErrorDetails
+  }
+
+
 }
