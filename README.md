@@ -8,6 +8,7 @@ Alle Dependencies installieren:
 `cd frontend` -> `npm install`
 
 Frontend starten: `cd frontend` -> ‘ng serve’
+
 Backend starten: `cd backend` -> `uvicorn main:app –host 0.0.0.0`
 
 Browser öffnen: `http://localhost:4200`
