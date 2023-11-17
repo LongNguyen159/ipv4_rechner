@@ -15,6 +15,6 @@ Install required packages/dependencies:
 
 Start Frontend service: `cd frontend` -> ‘ng serve’
 
-Start Backend service: `cd backend` -> `uvicorn main:app --host 0.0.0.0`
+Start Backend service: `cd backend` -> uvicorn main:app --host 0.0.0.0
 
 Open browser to see if everything is working: `http://localhost:4200`
