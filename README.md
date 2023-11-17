@@ -1,14 +1,20 @@
 # ipv4_rechner
 IPv4 Calculator
+Prerequisite:
+- Node.js and npm installed: https://nodejs.org/en/download
+- Angular CLI: `npm install -g @angular/cli`
 
-Projekt starten:
-Clone projekt: `git clone https://github.com/LongNguyen159/ipv4_rechner`
-Alle Dependencies installieren:
+
+
+How to start the project:
+Clone the project: `git clone https://github.com/LongNguyen159/ipv4_rechner`
+
+Install required packages/dependencies:
 `pip install -r requirements.txt`
 `cd frontend` -> `npm install`
 
-Frontend starten: `cd frontend` -> ‘ng serve’
+Start Frontend service: `cd frontend` -> ‘ng serve’
 
-Backend starten: `cd backend` -> `uvicorn main:app –host 0.0.0.0`
+Start Backend service: `cd backend` -> `uvicorn main:app –host 0.0.0.0`
 
-Browser öffnen: `http://localhost:4200`
+Open browser to see if everything is working: `http://localhost:4200`
