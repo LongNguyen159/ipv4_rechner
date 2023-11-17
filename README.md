@@ -10,8 +10,8 @@ How to start the project:
 Clone the project: `git clone https://github.com/LongNguyen159/ipv4_rechner`
 
 Install required packages/dependencies:
-`pip install -r requirements.txt`
-`cd frontend` -> `npm install`
+- `pip install -r requirements.txt`
+- `cd frontend` -> `npm install`
 
 Start Frontend service: `cd frontend` -> ‘ng serve’
 
