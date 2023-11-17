@@ -13,6 +13,8 @@ Install required packages/dependencies:
 - `cd backend` -> `pip install -r requirements.txt`
 - `cd frontend` -> `npm ci`
 
+*if 'requirements.txt' does not work, try `npm install fastapi`
+
 Start Frontend service: `cd frontend` -> ‘ng serve’
 
 Start Backend service: `cd backend` -> uvicorn main:app --host 0.0.0.0
